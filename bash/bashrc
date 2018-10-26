@@ -1,0 +1,23 @@
+#==========
+# Custom prompt
+#==========
+#            a       1  b       2 c      3
+#            |       |  |       | |      |
+#            v       v  v       v v      v
+export PS1="\e[1;92m\h:\e[1;34m\w\e[0m\$ \[$(tput sgr0)\]"
+#  a) bold green           |   1) hostname
+#  b) bold blue            |   2) current directory
+#  c) clear all effects    |   3) user input
+
+#==========
+# Disable <C-s>
+#==========
+bind -r "C-s"
+stty -ixon
+
+
+#==========
+# Reference
+#==========
+# https://misc.flogisoft.com/bash/tip_colors_and_formatting
+# http://bashrcgenerator.com/
