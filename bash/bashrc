@@ -1,20 +1,87 @@
 #==========
+# Config
+#==========
+FORCE_COLOR_PROMPT=false
+
+#==========
+# Default .bashrc functionality
+#==========
+# If not running interactively, don't do anything
+case $- in
+	*i*)
+		;;
+	*)
+		return
+		;;
+esac
+
+# Don't put duplicate lines/lines with spaces in history.
+HISTCONTROL=ignoreboth
+
+# Append to the history file (don't overwrite).
+shopt -s histappend
+
+# Set history length
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# Recursive double-wildcard (**)
+shopt -s globstar
+
+# Better less for non-text input files
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+#==========
+# Configure color
+#==========
+COLOR_PROMPT=false
+case "$TERM" in
+	xterm-color | *-256color)
+		COLOR_PROMPT=true
+		;;
+esac
+
+#==========
 # Custom prompt
 #==========
-#            a       1  b       2 c      3
-#            |       |  |       | |      |
-#            v       v  v       v v      v
-export PS1="\e[1;92m\h:\e[1;34m\w\e[0m\$ \[$(tput sgr0)\]"
-#  a) bold green           |   1) hostname
-#  b) bold blue            |   2) current directory
-#  c) clear all effects    |   3) user input
+if $COLOR_PROMPT; then
+	#              a         1    b         2   c         3
+	#              |         |    |         |   |         |
+	#              v         v    v         v   v         v
+	export PS1="\[\e[1;92m\]\h:\[\e[1;34m\]\w\[\e[0m\]\$ \[$(tput sgr0)\]"
+	#  a) bold green           |   1) hostname
+	#  b) bold blue            |   2) current directory
+	#  c) clear all effects    |   3) user input
+
+	alias ls="ls --color=auto"
+	alias grep="grep --color=auto"
+	alias fgrep="fgrep --color=auto"
+	alias egrep="egrep --color=auto"
+else
+	#            1  2   3
+	#            |  |   |
+	#            v  v   v
+	export PS1="\h:\w\$ \[$(tput sgr0)\]"
+fi
+
+#==========
+# Terminal title
+#==========
+case "$TERM" in
+	xterm* | rxvt*)
+		export PS1="\033]0;\h:\w\007$PS1"
+		;;
+esac
 
 #==========
 # Disable <C-s>
 #==========
 bind -r "C-s"
 stty -ixon
-
 
 #==========
 # Reference
