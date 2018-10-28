@@ -1,48 +1,68 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
-
-call plug#begin("~/.vim/plugged")
-
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-Plug 'itchyny/lightline.vim'
-
-call plug#end()
-autocmd vimenter * NERDTree
-
-" Show line numbers
-set number
-" Auto indent
-set smartindent
-
-" Turn on syntax highlighting
-syntax on
-
-" Use color scheme
-set t_Co=256 " enable 256 color
-colorscheme darkblue
-
-" Always show what mode we are in
-set laststatus=2
-highlight StatusLine ctermbg=4 ctermfg=15
-
-" === Vi compatability breakers ===
+"===========
+" Vi compatability breakers
+"===========
 set nocompatible
 filetype plugin on
 set modeline
 " https://superuser.com/questions/323712/modeline-not-work-in-vim
 
-" === Binds ===
+"===========
+" Plugin manager
+"===========
+" Download and install vim-plug (if necessary)
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+	     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+call plug#begin("~/.vim/plugged")
+	" NERDTree
+	Plug 'scrooloose/nerdtree'
+	Plug 'Xuyuanp/nerdtree-git-plugin'
+	" Status bar
+	Plug 'itchyny/lightline.vim'
+	" Git side-bar status
+	Plug 'airblade/vim-gitgutter'
+	" Move panes with <Leader>ww
+	Plug 'wesQ3/vim-windowswap'
+call plug#end()
+
+"===========
+" Visual/color changes
+"===========
+" Show line numbers
+set number
+" Turn on syntax highlighting
+syntax on
+" Enable 256 color
+set t_Co=256
+" Use color scheme
+colorscheme darkblue
+" Always show what mode we are in
+set laststatus=2
+highlight StatusLine ctermbg=4 ctermfg=15
+
+"===========
+" Highlight
+"===========
+" Column limit
+set colorcolumn=100
+highlight ColorColumn ctermbg=238 ctermfg=11
+" https://superuser.com/questions/249779/how-to-setup-a-line-length-marker-in-vim-gvim
+" Highlight current line
+set cursorline
+highlight CursorLine cterm=NONE ctermbg=238
+" Highlight visual selection (aka click and drag)
+hi Visual term=reverse ctermbg=3 ctermfg=4
+
+"===========
+" Binds
+"===========
 " Map Control+S to save
 " normal mode
-nmap <c-s> :update<CR>
-" insert mode, return to normal mode after saving
-" :map <c-s> <Esc>:update<CR>a
-imap <c-s> <Esc>:update<CR>
+nmap <C-s> :update<CR>
+imap <C-s> <Esc>:update<CR>
 " Quick movement between splits
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -50,26 +70,39 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 " https://robots.thoughtbot.com/vim-splits-move-faster-and-more-naturally
 
-" === Commands ===
+"===========
+" Leader commands
+"===========
 " <Leader>rc to quickly reload .vimrc
 map <Leader>rc :tabdo so $MYVIMRC <CR> :echom "Reloaded .vimrc"<CR>
+" <Leader>ne to quickly toggle NERDTree
+map <Leader>ne :NERDTreeToggle <CR> :echom "Toggled NERDTree"<CR>
 
-" === Indentation ===
+"===========
+" Indentation
+"===========
+" Auto indent
+set smartindent
 " Explicitly use tabs
 set noexpandtab
 " Dislpay tab as 4 spaces
 set tabstop=2
 set shiftwidth=2
 
-" === Whitespace markers ===
-" Custom linebreaks/tabs/trailing space
+"===========
+" Whitespace markers
+"===========
 set list
+" Custom linebreaks/tabs/trailing space
 set showbreak=↪\ 
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
-" === Mouse ===
+"===========
+" Mouse
+"===========
 " Allow mouse usage
 set mouse=a
+" Set ttymouse type
 if has("mouse_sgr")
 	set ttymouse=sgr
 else
@@ -84,8 +117,6 @@ highlight ColorColumn ctermbg=238 ctermfg=11
 " Highlight current line
 set cursorline
 highlight CursorLine cterm=NONE ctermbg=238
-" Highlight visual selection (aka click and drag)
-hi Visual term=reverse ctermbg=3 ctermfg=4
 
 " consider adding OS clipboard
 " https://stackoverflow.com/questions/3961859/how-to-copy-to-clipboard-in-vim
