@@ -117,6 +117,9 @@ autocmd vimenter * NERDTree
 " Auto-close if last buffer
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " https://github.com/scrooloose/nerdtree/issues/21
+" Minimize clutter
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 " consider adding OS clipboard
 " https://stackoverflow.com/questions/3961859/how-to-copy-to-clipboard-in-vim
