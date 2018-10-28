@@ -109,14 +109,14 @@ else
 	set ttymouse=xterm2
 end
 
-" === Highlight ===
-" Column limit
-set colorcolumn=100
-highlight ColorColumn ctermbg=238 ctermfg=11
-" https://superuser.com/questions/249779/how-to-setup-a-line-length-marker-in-vim-gvim
-" Highlight current line
-set cursorline
-highlight CursorLine cterm=NONE ctermbg=238
+"==========
+" NERDTree
+"==========
+" Auto-start
+autocmd vimenter * NERDTree
+" Auto-close if last buffer
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" https://github.com/scrooloose/nerdtree/issues/21
 
 " consider adding OS clipboard
 " https://stackoverflow.com/questions/3961859/how-to-copy-to-clipboard-in-vim
