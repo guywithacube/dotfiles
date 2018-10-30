@@ -20,6 +20,8 @@ call plug#begin("~/.vim/plugged")
 	" NERDTree
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
+	" NERDCommenter
+	Plug 'scrooloose/nerdcommenter'
 	" Status bar
 	Plug 'itchyny/lightline.vim'
 	" Git side-bar status
