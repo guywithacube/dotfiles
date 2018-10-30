@@ -56,11 +56,6 @@ if $COLOR_PROMPT; then
 	#  a) bold green           |   1) hostname
 	#  b) bold blue            |   2) current directory
 	#  c) clear all effects    |   3) user input
-
-	alias ls="ls --color=auto"
-	alias grep="grep --color=auto"
-	alias fgrep="fgrep --color=auto"
-	alias egrep="egrep --color=auto"
 else
 	#            1  2   3
 	#            |  |   |
