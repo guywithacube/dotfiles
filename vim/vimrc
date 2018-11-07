@@ -41,6 +41,9 @@ syntax on
 set t_Co=256
 " Use color scheme
 colorscheme darkblue
+if has("gui_running")
+	colorscheme desert
+end
 " Always show what mode we are in
 set laststatus=2
 highlight StatusLine ctermbg=4 ctermfg=15
