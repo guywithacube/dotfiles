@@ -18,12 +18,16 @@ esac
 # Don't put duplicate lines/lines with spaces in history.
 HISTCONTROL=ignoreboth
 
-# Append to the history file (don't overwrite).
-shopt -s histappend
-
 # Set history length
 HISTSIZE=1000
 HISTFILESIZE=2000
+
+# Append to the history file (don't overwrite).
+shopt -s histappend
+
+# Check window size after each command.
+# Update LINES and COLUMNS if nedded.
+shopt -s checkwinsize
 
 # Recursive double-wildcard (**)
 shopt -s globstar
@@ -48,19 +52,21 @@ esac
 #==========
 # Custom prompt
 #==========
+# Limit directory length to only show last nodes
+PROMPT_DIRTRIM=3
 if $COLOR_PROMPT; then
-	#              a         1    b         2   c         3
-	#              |         |    |         |   |         |
-	#              v         v    v         v   v         v
-	export PS1="\[\e[1;92m\]\h:\[\e[1;34m\]\w\[\e[0m\]\$ \[$(tput sgr0)\]"
+	#              a         1    b         2   c           3
+	#              |         |    |         |   |           |
+	#              v         v    v         v   v           v
+	export PS1="\[\e[1;92m\]\h:\[\e[1;34m\]\w\[\e[0m\] \$ \[$(tput sgr0)\]"
 	#  a) bold green           |   1) hostname
 	#  b) bold blue            |   2) current directory
 	#  c) clear all effects    |   3) user input
 else
-	#            1  2   3
-	#            |  |   |
-	#            v  v   v
-	export PS1="\h:\w\$ \[$(tput sgr0)\]"
+	#            1  2      3
+	#            |  |      |
+	#            v  v      v
+	export PS1="\h:\w\n \$ \[$(tput sgr0)\]"
 fi
 
 #==========
@@ -68,7 +74,7 @@ fi
 #==========
 case "$TERM" in
 	xterm* | rxvt*)
-		export PS1="\033]0;\h:\w\007$PS1"
+		export PS1="\[\033]0;\]\[\h:\w\007\]$PS1"
 		;;
 esac
 
