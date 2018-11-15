@@ -38,7 +38,9 @@ set number
 " Turn on syntax highlighting
 syntax on
 " Enable 256 color
-set t_Co=256
+if (&term =~ "256color")
+	set t_Co=256
+endif
 " Use color scheme
 colorscheme darkblue
 if has("gui_running")
