@@ -103,6 +103,11 @@ set showbreak=↪\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 "===========
+" Separation markers
+"===========
+set fillchars=vert:│
+
+"===========
 " Mouse
 "===========
 " Allow mouse usage
