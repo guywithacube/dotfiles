@@ -125,7 +125,15 @@ end
 " NERDTree
 "==========
 " Auto-start
-autocmd vimenter * NERDTree
+let height = str2float(&columns)
+let width = str2float(&lines)
+if ((height >= 80) && (width >= 24))
+	autocmd vimenter * NERDTree
+	autocmd vimenter * wincmd w
+	autocmd vimenter * echo "NERDTree auto started"
+else
+	autocmd vimenter * echo "NERDTree ignored; window too small"
+endif
 " Auto-close if last buffer
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " https://github.com/scrooloose/nerdtree/issues/21
