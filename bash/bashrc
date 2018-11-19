@@ -85,6 +85,12 @@ bind -r "C-s"
 stty -ixon
 
 #==========
+# GNU Make Autocompletion
+#==========
+complete -W "\`grep -oE '^[a-zA-Z0-9_-][a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
+# https://stackoverflow.com/q/4188324/
+
+#==========
 # Reference
 #==========
 # https://misc.flogisoft.com/bash/tip_colors_and_formatting
