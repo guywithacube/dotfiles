@@ -11,6 +11,7 @@ rm -rfv ~/.dotfiles
 rm -rfv ~/.bash_profile
 rm -rfv ~/.bash_aliases
 rm -rfv ~/.bashrc
+rm -rfv ~/.inputrc
 rm -rfv ~/.tmux.conf
 rm -rfv ~/.vimrc
 rm -rfv ~/.vim
@@ -24,6 +25,7 @@ ln -sfv $DOTFILES_DIR ~/.dotfiles
 ln -sfv $DOTFILES_DIR/bash/bash_profile ~/.bash_profile
 ln -sfv $DOTFILES_DIR/bash/bash_aliases ~/.bash_aliases
 ln -sfv $DOTFILES_DIR/bash/bashrc ~/.bashrc
+ln -sfv $DOTFILES_DIR/bash/inputrc ~/.inputrc
 ln -sfv $DOTFILES_DIR/tmux/tmux.conf ~/.tmux.conf
 ln -sfv $DOTFILES_DIR/vim/vimrc ~/.vimrc
 ln -sfv $DOTFILES_DIR/vim ~/.vim

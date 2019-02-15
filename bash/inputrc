@@ -1,0 +1,10 @@
+#==========
+# Vi editing
+#==========
+set editing-mode vi
+#set show-mode-in-prompt on
+
+#==========
+# Color autocompleted text
+#==========
+set colored-stats on
