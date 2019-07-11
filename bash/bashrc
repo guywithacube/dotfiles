@@ -7,6 +7,7 @@ FORCE_COLOR_PROMPT=false
 # Default .bashrc functionality
 #==========
 # If not running interactively, don't do anything
+# https://unix.stackexchange.com/a/257613
 case $- in
 	*i*)
 		;;
@@ -55,6 +56,10 @@ esac
 # Limit directory length to only show last nodes
 PROMPT_DIRTRIM=3
 if $COLOR_PROMPT; then
+	# PS1 Bash escaping
+	# https://unix.stackexchange.com/a/28828
+	# PS1 Bash prompt escape sequences:
+	# http://tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html
 	#              a         1    b         2   c           3
 	#              |         |    |         |   |           |
 	#              v         v    v         v   v           v
@@ -75,6 +80,13 @@ fi
 case "$TERM" in
 	xterm* | rxvt*)
 		export PS1="\[\033]0;\]\[\h:\w\007\]$PS1"
+		# a) clear all effects
+		# b) BELL character
+		#
+		# NOTE: XTerm Titles from http://tldp.org/HOWTO/Xterm-Title-3.html
+		#       - ESC]0;stringBEL : Set icon name and window title to string
+		#       - ESC]1;stringBEL : Set icon name to string
+		#       - ESC]2;stringBEL : Set window title to string
 		;;
 esac
 
@@ -87,8 +99,9 @@ stty -ixon
 #==========
 # GNU Make Autocompletion
 #==========
+# https://stackoverflow.com/a/38415982
 complete -W "\`grep -oE '^[a-zA-Z0-9_-][a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
-# https://stackoverflow.com/q/4188324/
+
 
 #==========
 # Reference
