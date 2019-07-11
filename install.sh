@@ -5,8 +5,7 @@ DOTFILES_DIR=~/dotfiles
 #==========
 # Delete pre-existing dot files and folders
 #==========
-# > /dev/null 2>&1
-printf "Removing any existing directories\n"
+printf "Removing any existing directories/symbolic links\n"
 rm -rfv ~/.dotfiles
 rm -rfv ~/.bash_profile
 rm -rfv ~/.bash_aliases
