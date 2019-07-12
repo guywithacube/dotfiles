@@ -102,9 +102,9 @@ stty -ixon
 # https://stackoverflow.com/a/38415982
 complete -W "\`grep -oE '^[a-zA-Z0-9_-][a-zA-Z0-9_.-]+:([^=]|$)' Makefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
 
-
 #==========
-# Reference
+# Private / machine specific
 #==========
-# https://misc.flogisoft.com/bash/tip_colors_and_formatting
-# http://bashrcgenerator.com/
+for file in $BASH_DIR/private.d/*.sh; do
+	. $file
+done
