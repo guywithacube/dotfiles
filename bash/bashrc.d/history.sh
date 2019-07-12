@@ -18,7 +18,9 @@ shopt -s histappend
 # Flush to history file after every command
 # https://askubuntu.com/a/80380
 # https://stackoverflow.com/a/36669770
-export PROMPT_COMMAND="flushToHistory;$PROMPT_COMMAND"
+if [[ "$PROMPT_COMMAND" != *"flushToHistory"* ]]; then
+	export PROMPT_COMMAND="flushToHistory"
+fi
 flushToHistory() {
 	history -a
 	history -r
