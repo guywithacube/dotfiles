@@ -1,91 +1,23 @@
 "===========
 " Vi compatability breakers
 "===========
+" https://superuser.com/a/603928
 set nocompatible
 filetype plugin on
 set modeline
-" https://superuser.com/questions/323712/modeline-not-work-in-vim
 
 "===========
-" Plugin manager
-"===========
-" Download and install vim-plug (if necessary)
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-	     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
-
-call plug#begin("~/.vim/plugged")
-	" NERDTree
-	Plug 'scrooloose/nerdtree'
-	Plug 'Xuyuanp/nerdtree-git-plugin'
-	" NERDCommenter
-	Plug 'scrooloose/nerdcommenter'
-	" Status bar
-	Plug 'itchyny/lightline.vim'
-	" Git side-bar status
-	Plug 'airblade/vim-gitgutter'
-	" Move panes with <Leader>ww
-	Plug 'wesQ3/vim-windowswap'
-call plug#end()
-
-"===========
-" Visual/color changes
+" Basics
 "===========
 " Show line numbers
 set number
 " Turn on syntax highlighting
 syntax on
-" Enable 256 color
-if (&term =~ "256color")
-	set t_Co=256
-endif
-" Use color scheme
-colorscheme darkblue
-if has("gui_running")
-	colorscheme desert
-end
-" Always show what mode we are in
-set laststatus=2
-highlight StatusLine ctermbg=4 ctermfg=15
-
-"===========
-" Highlight
-"===========
-" Column limit
-set colorcolumn=100
-highlight ColorColumn ctermbg=238 ctermfg=11
-" https://superuser.com/questions/249779/how-to-setup-a-line-length-marker-in-vim-gvim
-" Highlight current line
-set cursorline
-highlight CursorLine cterm=NONE ctermbg=238
-" Highlight visual selection (aka click and drag)
-hi Visual term=reverse ctermbg=3 ctermfg=4
-
-"===========
-" Binds
-"===========
-" Map Control+S to save
-" normal mode
-nmap <C-s> :update<CR>
-imap <C-s> <Esc>:update<CR>
-" Quick movement between splits
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-" https://robots.thoughtbot.com/vim-splits-move-faster-and-more-naturally
-" Map "qq" to quit all
-nnoremap qq :qa<CR>
-
-"===========
-" Leader commands
-"===========
-" <Leader>rc to quickly reload .vimrc
-map <Leader>rc :tabdo so $MYVIMRC <CR> :echom "Reloaded .vimrc"<CR>
-" <Leader>ne to quickly toggle NERDTree
-map <Leader>ne :NERDTreeToggle <CR> :echom "Toggled NERDTree"<CR>
+" Allow backspacing over:
+"	- indent
+"	- linebreaks
+"	- start of insert
+set backspace=indent,eol,start
 
 "===========
 " Indentation
@@ -99,19 +31,6 @@ set tabstop=2
 set shiftwidth=2
 
 "===========
-" Whitespace markers
-"===========
-set list
-" Custom linebreaks/tabs/trailing space
-set showbreak=↪\ 
-set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
-
-"===========
-" Separation markers
-"===========
-set fillchars=vert:│
-
-"===========
 " Mouse
 "===========
 " Allow mouse usage
@@ -123,25 +42,13 @@ else
 	set ttymouse=xterm2
 end
 
-"==========
-" NERDTree
-"==========
-" Auto-start
-let height = str2float(&columns)
-let width = str2float(&lines)
-if ((height >= 80) && (width >= 24))
-	autocmd vimenter * NERDTree
-	autocmd vimenter * wincmd w
-	autocmd vimenter * echo "NERDTree auto started"
-else
-	autocmd vimenter * echo "NERDTree ignored; window too small"
-endif
-" Auto-close if last buffer
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" https://github.com/scrooloose/nerdtree/issues/21
-" Minimize clutter
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-
-" consider adding OS clipboard
-" https://stackoverflow.com/questions/3961859/how-to-copy-to-clipboard-in-vim
+" FUNCTIONS
+source $HOME/.dotfiles/vim/vimrc.d/functions.vimrc
+" PLUGIN
+source $HOME/.dotfiles/vim/vimrc.d/plugin.vimrc
+" BINDS
+source $HOME/.dotfiles/vim/vimrc.d/binds.vimrc
+" LEADER
+source $HOME/.dotfiles/vim/vimrc.d/leader.vimrc
+" VISUAL
+source $HOME/.dotfiles/vim/vimrc.d/visual.vimrc
