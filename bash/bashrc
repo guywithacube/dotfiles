@@ -95,5 +95,5 @@ done
 # Private / machine specific
 #==========
 for file in $BASH_DIR/private.d/*.sh; do
-	. $file
+	[ -r "$file" ] && [ -f "$file" ] && . "$file"
 done
