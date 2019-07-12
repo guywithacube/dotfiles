@@ -17,3 +17,60 @@ alias egrep="egrep --color=auto"
 alias ll="ls -alF"
 alias la="ls -A"
 alias l="ls -CF"
+
+#==========
+# Typos
+#==========
+:q(){
+echo -e "Assuming you meant exit...\nPress (Q) to skip countdown or any other key to cancel."
+	for i in {3..1}; do
+		# https://unix.stackexchange.com/a/26592
+		echo -e -n "\e[2K\rExiting in $i"
+		# https://stackoverflow.com/a/33614961
+		read -n 1 -t 1 input
+		if [ $? == 0 ]; then
+			if [[ $input == "q" || $input == "Q" ]]; then
+				echo -e -n "\e[2K\rBye"
+				break
+			fi
+			echo -e "\nCancelled"
+			return
+		fi
+	done
+	exit
+}
+
+#==========
+# Tools
+#==========
+alias rc="reloadBashrc"
+reloadBashrc() {
+	source ~/.bashrc
+	echo "Reloaded bashrc"
+}
+
+alias th="toggleHistory"
+toggleHistory() {
+	if historyEnabled; then
+		echo "Disabling history"
+		set +o history
+	else
+		echo "Enabling history"
+		set -o history
+	fi
+}
+
+historyEnabled() {
+	# https://stackoverflow.com/a/1397020
+	if [[ ":$SHELLOPTS:" == *":history:"* ]]; then
+		# history is enabled
+		return 0
+	else
+		# history is NOT enabled
+		return 1
+	fi
+}
+
+colors() {
+	$SCRIPTS_DIR/show-all-256-colors.py
+}
