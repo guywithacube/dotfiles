@@ -79,6 +79,16 @@ bind -r "C-s"
 stty -ixon
 
 #==========
+# Editor
+#==========
+# Set vim as default editor; if it is installed
+# https://unix.stackexchange.com/a/73486
+if [ -x "$(command -v vim)" ]; then
+	export VISUAL=vim
+	export EDITOR="$VISUAL"
+fi
+
+#==========
 # Load files
 #==========
 bashrcFiles=(
