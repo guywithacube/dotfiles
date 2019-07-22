@@ -24,3 +24,12 @@ nnoremap qq :q<CR>
 " Map "qa" to quit all
 nnoremap qa :qa<CR>
 
+" Map "jk" to ESC
+" insert mode
+inoremap jk <Esc>
+" command mode
+cnoremap jk <ESC>
+" Map "JK" to ESC
+" visual mode
+vnoremap JK <Esc>
+
