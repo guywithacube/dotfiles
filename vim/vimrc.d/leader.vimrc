@@ -9,8 +9,8 @@ map <Leader>ne :NERDTreeToggle <CR> :echom "Toggled NERDTree"<CR>
 
 " <Leader>o to add newline without entering insert mode
 " https://vi.stackexchange.com/a/3881
-nnoremap <silent> <leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
-nnoremap <silent> <leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
+nnoremap <silent> <Leader>o :<C-u>call append(line("."),   repeat([""], v:count1))<CR>
+nnoremap <silent> <Leader>O :<C-u>call append(line(".")-1, repeat([""], v:count1))<CR>
 
 " <Leader>qt to quickly open a terminal window
 " https://vi.stackexchange.com/a/16800
