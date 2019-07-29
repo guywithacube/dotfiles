@@ -25,3 +25,5 @@ function QuickTerm()
 	echo "Opened new terminal (height: " . newHeight . ")"
 endfunction
 
+" <Leader>tt to quickly open a new tab
+map <Leader>tt :<C-u>tabnew<CR>
