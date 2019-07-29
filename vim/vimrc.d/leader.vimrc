@@ -20,7 +20,7 @@ function QuickTerm()
 	wincmd b
 	let height = str2nr(&columns)
 	let newHeight = string(height / 12)
-	execute "below terminal ++rows=" . newHeight
+	execute "below terminal ++close ++rows=" . newHeight
 
 	echo "Opened new terminal (height: " . newHeight . ")"
 endfunction
