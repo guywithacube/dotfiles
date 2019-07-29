@@ -37,6 +37,12 @@ call plug#end()
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
+" https://www.mokacoding.com/blog/nerdtree-relative-numbers/
+" enable line numbers
+let NERDTreeShowLineNumbers=1
+" make sure relative line numbers are used
+autocmd FileType nerdtree setlocal relativenumber
+
 " Auto-start
 autocmd vimenter * call AutoStartNERDTree()
 function AutoStartNERDTree()
