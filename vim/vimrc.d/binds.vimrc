@@ -18,7 +18,7 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 
-" Map "qq" to quit all
+" Map "qq" to quit
 nnoremap qq :q<CR>
 
 " Map "qa" to quit all
