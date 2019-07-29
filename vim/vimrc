@@ -52,3 +52,5 @@ source $HOME/.dotfiles/vim/vimrc.d/binds.vimrc
 source $HOME/.dotfiles/vim/vimrc.d/leader.vimrc
 " VISUAL
 source $HOME/.dotfiles/vim/vimrc.d/visual.vimrc
+" ABBREVIATE
+source $HOME/.dotfiles/vim/vimrc.d/abbreviate.vimrc
