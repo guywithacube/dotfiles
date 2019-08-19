@@ -18,6 +18,7 @@ syntax on
 "	- linebreaks
 "	- start of insert
 set backspace=indent,eol,start
+set laststatus=2
 
 "===========
 " Indentation
