@@ -19,6 +19,12 @@ alias la="ls -A"
 alias l="ls -CF"
 
 #==========
+# Extend tmux
+#==========
+alias ta="tmux attach"
+alias tn="tmux new-session"
+
+#==========
 # Typos
 #==========
 :q(){
