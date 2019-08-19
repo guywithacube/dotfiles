@@ -54,3 +54,9 @@ source $HOME/.dotfiles/vim/vimrc.d/leader.vimrc
 source $HOME/.dotfiles/vim/vimrc.d/visual.vimrc
 " ABBREVIATE
 source $HOME/.dotfiles/vim/vimrc.d/abbreviate.vimrc
+
+" Add auto close of terminal
+"augroup terminal
+				"autocmd!
+				"autocmd TermClose * if getline('$') == 'Exit 0' | close | endif
+"augroup end
