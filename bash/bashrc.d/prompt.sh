@@ -7,7 +7,7 @@
 PROMPT_DIRTRIM=3
 
 if [ $(id -u) == 0 ]; then
-	echo "you are root"
+	echo "BE CAREFUL, YOU ARE ROOT"
 fi
 
 if $COLOR_PROMPT; then
