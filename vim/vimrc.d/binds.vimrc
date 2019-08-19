@@ -1,6 +1,8 @@
 "===========
 " Binds
 "===========
+" https://stackoverflow.com/a/11676244
+
 " Map Control+S to save
 " normal mode
 nmap <C-s> :update<CR>
@@ -15,8 +17,8 @@ nnoremap <C-H> <C-W><C-H>
 
 " Map Control+Left/Right to move between tabs
 " https://superuser.com/a/884981
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
+nnoremap <C-Left> :<C-u>tabprevious<CR>
+nnoremap <C-Right> :<C-u>tabnext<CR>
 
 " Map Control+Up/Down to re-order tabs
 noremap <C-Up> :<C-u>call TabMove("left")<CR>
@@ -56,4 +58,3 @@ cnoremap jk <ESC>
 " Map "JK" to ESC
 " visual mode
 vnoremap JK <Esc>
-
