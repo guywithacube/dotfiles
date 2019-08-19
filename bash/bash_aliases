@@ -83,3 +83,21 @@ historyEnabled() {
 colors() {
 	$SCRIPTS_DIR/show-all-256-colors.py
 }
+
+# sudo does not work well with functions and aliases, use smartSudo for those cases
+# https://unix.stackexchange.com/a/438712
+alias ssudo="smartSudo"
+function smartSudo {
+	local firstArg=$1
+	if [ $(type -t $firstArg) = function ]
+	then
+		shift && command sudo bash -c "$(declare -f $firstArg);$firstArg $*"
+	elif [ $(type -t $firstArg) = alias ]
+	then
+		alias sudo='\sudo '
+		eval "sudo $@"
+	else
+		command sudo "$@"
+	fi
+}
+
