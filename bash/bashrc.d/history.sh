@@ -9,8 +9,8 @@ HISTCONTROL="ignorespace:ignoredups"
 
 # Set history length
 # https://stackoverflow.com/a/19454838
-HISTSIZE=1000     # stored in memory
-HISTFILESIZE=8000 # stored on disk
+HISTSIZE=5000     # stored in memory
+HISTFILESIZE=5000 # stored on disk
 
 # Append to the history file (don't overwrite).
 shopt -s histappend
