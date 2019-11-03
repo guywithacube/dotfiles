@@ -23,6 +23,7 @@ alias ...="cd ../.."
 alias ll="ls -alF"
 alias la="ls -A"
 alias l="ls -CF"
+alias lsla="ls -al"
 
 #==========
 # Extend tmux
