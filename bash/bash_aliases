@@ -34,6 +34,17 @@ alias tn="tmux new-session"
 alias tl="tmux ls"
 
 #==========
+# Git
+#==========
+alias g="git"
+alias ga="git add"
+alias gai="git add -i"
+alias gc="git commit"
+alias gd="git diff"
+alias gl="git log"
+alias gs="git status"
+
+#==========
 # Typos
 #==========
 alias :q="simulateVimExit"
