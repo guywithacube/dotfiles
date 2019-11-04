@@ -45,6 +45,11 @@ alias gl="git log"
 alias gs="git status"
 
 #==========
+# Clear
+#==========
+alias cl="clear"
+
+#==========
 # Typos
 #==========
 alias :q="simulateVimExit"
