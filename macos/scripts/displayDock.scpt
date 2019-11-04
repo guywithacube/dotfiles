@@ -1,4 +1,5 @@
 #!/usr/bin/env osascript
+-- vim: ft=applescript
 
 -- https://www.organizingcreativity.com/2017/08/mac-tip-moving-and-auto-hiding-the-dock-if-you-work-with-different-screen-setups/
 tell application "System Events"
