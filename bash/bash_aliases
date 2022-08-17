@@ -54,8 +54,8 @@ alias cl="clear"
 # Typos
 #==========
 alias :q="simulateVimExit"
-alias jk:q="simulateVimExit" 
-alias qq="simulateVimExit" 
+alias jk:q="simulateVimExit"
+alias qq="simulateVimExit"
 simulateVimExit() {
 echo -e "Assuming you meant exit...\nPress (Q) to skip countdown or any other key to cancel."
 	for i in {3..1}; do

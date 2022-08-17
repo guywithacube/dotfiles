@@ -31,7 +31,7 @@ hi Visual term=reverse ctermbg=3 ctermfg=4
 "===========
 set list
 " Custom linebreaks/tabs/trailing space indicators
-set showbreak=↪\ 
+set showbreak=↪\
 set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
 "===========

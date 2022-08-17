@@ -1,6 +1,6 @@
 " X-do and return cursor
 "===========
-" Similar to default x-do but returns cursor to last position 
+" Similar to default x-do but returns cursor to last position
 " https://vim.fandom.com/wiki/Run_a_command_in_multiple_buffers
 if !(exists("*WinDo"))
 	function! WinDo(command)
