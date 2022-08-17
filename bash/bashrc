@@ -6,7 +6,6 @@
 #==========
 DOTFILES_DIR=~/.dotfiles
 BASH_DIR=$DOTFILES_DIR/bash
-SCRIPTS_DIR=$DOTFILES_DIR/scripts
 
 #==========
 # Default .bashrc functionality

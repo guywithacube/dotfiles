@@ -106,10 +106,6 @@ historyEnabled() {
 	fi
 }
 
-colors() {
-	$SCRIPTS_DIR/show-all-256-colors.py
-}
-
 # sudo does not work well with functions and aliases, use smartSudo for those cases
 # https://unix.stackexchange.com/a/438712
 alias ssudo="smartSudo"
