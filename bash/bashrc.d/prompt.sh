@@ -30,16 +30,10 @@ fi
 #==========
 case "$TERM" in
 	xterm* | rxvt*)
-		#              a             b
-		#              |             |
-		#              v             v
-		export PS1="\[\e]0;\]\[\h:\w\007\]$PS1"
-		# a) clear all effects
-		# b) BELL character
-		#
-		# NOTE: XTerm Titles from http://tldp.org/HOWTO/Xterm-Title-3.html
+		# NOTE: xterm OSC escape sequences from http://tldp.org/HOWTO/Xterm-Title-3.html
 		#       - ESC]0;stringBEL : Set icon name and window title to string
 		#       - ESC]1;stringBEL : Set icon name to string
 		#       - ESC]2;stringBEL : Set window title to string
+		export PS1="\[\e]0;\h:\w\007\]$PS1"
 		;;
 esac
