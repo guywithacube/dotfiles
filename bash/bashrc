@@ -43,11 +43,15 @@ stty -ixon
 #==========
 # Editor
 #==========
-# Set vim as default editor; if it is installed
+# If Vim is installed, set as default editor
 # https://unix.stackexchange.com/a/73486
-if [ -x "$(command -v vim)" ]; then
-	export VISUAL=vim
-	export EDITOR="$VISUAL"
+
+# Attempt to fetch path to Vim
+path_to_vim=$(command -v vim)
+# Verify path_to_vim leads to an executable
+if [ -x "$path_to_vim" ]; then
+	export VISUAL=$path_to_vim
+	export EDITOR=$path_to_vim
 fi
 
 #==========
