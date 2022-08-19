@@ -3,9 +3,6 @@
 #==========
 # Custom prompt
 #==========
-# Limit directory length to only show last nodes
-PROMPT_DIRTRIM=3
-
 if $COLOR_PROMPT; then
 	# PS1 Bash escaping
 	# https://unix.stackexchange.com/a/28828
