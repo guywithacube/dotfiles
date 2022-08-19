@@ -6,10 +6,6 @@
 # Limit directory length to only show last nodes
 PROMPT_DIRTRIM=3
 
-if [ $(id -u) == 0 ]; then
-	echo "BE CAREFUL, YOU ARE ROOT"
-fi
-
 if $COLOR_PROMPT; then
 	# PS1 Bash escaping
 	# https://unix.stackexchange.com/a/28828
