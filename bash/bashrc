@@ -109,13 +109,3 @@ done
 for file in $BASH_DIR/private.d/*.sh; do
 	[ -r "$file" ] && [ -f "$file" ] && . "$file"
 done
-
-#==========
-# OS specific
-#==========
-# https://stackoverflow.com/a/17072017
-if [ "$(uname)" == "Darwin" ]; then
-	for file in $DOTFILES_DIR/macos/aliases.d/*.sh; do
-		[ -r "$file" ] && [ -f "$file" ] && . "$file"
-	done
-fi
