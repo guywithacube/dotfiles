@@ -11,17 +11,18 @@ if $COLOR_PROMPT; then
 	# https://unix.stackexchange.com/a/28828
 	# PS1 Bash prompt escape sequences:
 	# http://tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html
-	#              a         1    b         2   c           3
-	#              |         |    |         |   |           |
-	#              v         v    v         v   v           v
+	#              a         1    b         2   c            d
+	#              |         |    |         |   |            |
+	#              v         v    v         v   v            v
 	export PS1="\[\e[1;92m\]\h:\[\e[1;34m\]\w\[\e[0m\] \\$ \[$(tput sgr0)\]"
-	#  a) bold green          |   1) hostname
-	#  b) bold blue           |   2) current directory
-	#  c) clear all effects   |   3) user input
+	#  a) bold green                 |   1) hostname
+	#  b) bold blue                  |   2) current directory
+	#  c) clear all effects          |   3) user input
+	#  d) clear all effects via tput
 else
-	#            1  2      3
-	#            |  |      |
-	#            v  v      v
+	#            1  2       d
+	#            |  |       |
+	#            v  v       v
 	export PS1="\h:\w \\$ \[$(tput sgr0)\]"
 fi
 
