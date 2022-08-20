@@ -17,10 +17,10 @@ if $COLOR_PROMPT; then
 	#  c) clear all effects          |   3) user input
 	#  d) clear all effects via tput
 else
-	#            1  2       d
-	#            |  |       |
-	#            v  v       v
-	export PS1="\h:\w \\$ \[$(tput sgr0)\]"
+	#            1  2
+	#            |  |
+	#            v  v
+	export PS1="\h:\w \\$ "
 fi
 
 #==========
