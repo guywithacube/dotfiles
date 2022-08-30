@@ -3,24 +3,25 @@
 #==========
 # Custom prompt
 #==========
+# Escape non-printing characters
+# https://superuser.com/a/301355
+COLORED_PS1="\[\e[0m\]\[\e[33m\]\u@\h\[\e[0m\]\[\e[37m\]:\[\e[0m\]\[\e[32m\]\w\[\e[0m\]\n\\$ \[\e[0m\]"
 if $SUPPORTS_COLORS; then
-	# PS1 Bash escaping
-	# https://unix.stackexchange.com/a/28828
-	# PS1 Bash prompt escape sequences:
-	# http://tldp.org/HOWTO/Bash-Prompt-HOWTO/bash-prompt-escape-sequences.html
-	#              a         1    b         2   c            d
-	#              |         |    |         |   |            |
-	#              v         v    v         v   v            v
-	export PS1="\[\e[1;92m\]\h:\[\e[1;34m\]\w\[\e[0m\] \\$ \[$(tput sgr0)\]"
-	#  a) bold green                 |   1) hostname
-	#  b) bold blue                  |   2) current directory
-	#  c) clear all effects          |   3) user input
-	#  d) clear all effects via tput
+	export PS1=$COLORED_PS1
 else
-	#            1  2
-	#            |  |
-	#            v  v
-	export PS1="\h:\w \\$ "
+	# Save extglob option
+	saved_shopt_extglob="$(shopt -p extglob)"
+
+	# Enable extglob
+	shopt -s extglob
+	# Remove occurrences of `\[` or `\]`
+	REMOVE_NON_PRINTING_ESCAPES=${COLORED_PS1//@(\\\[|\\\])/}
+	# Remove occurrences of ANSI SGR escapes
+	REMOVE_ANSI_ESCAPES=${REMOVE_NON_PRINTING_ESCAPES//@(\\e|\\033)\[*([[:digit:];])m/}
+	export PS1=$REMOVE_ANSI_ESCAPES
+
+	# Restore original extglob option
+	eval "$saved_shopt_extglob"
 fi
 
 #==========
