@@ -5,7 +5,12 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
 	     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall | source $MYVIMRC
+	if v:shell_error
+		echo 'A problem occured while downloading vim-plug'
+		finish
+	else
+		autocmd VimEnter * PlugInstall | source $MYVIMRC
+	endif
 endif
 
 call plug#begin("~/.vim/plugged")
