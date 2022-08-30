@@ -63,16 +63,21 @@ if [ -x "$path_to_vim" ]; then
 fi
 
 #==========
+# Configure color
+#==========
+COLOR_PROMPT=false
+case "$TERM" in
+	xterm-color | *-256color)
+		COLOR_PROMPT=true
+		;;
+esac
+
+#==========
 # Load files
 #==========
-bashrcFiles=(
-	color
-	prompt
-	history
-	completion
-)
-for file in "${bashrcFiles[@]}"; do
-	. $BASH_DIR/bashrc.d/$file.sh
+for script in "$BASH_DIR"/bashrc.d/*.sh; do
+	# shellcheck source=/dev/null
+	source "$script"
 done
 
 #==========
