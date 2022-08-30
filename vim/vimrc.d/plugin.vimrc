@@ -28,8 +28,6 @@ call plug#begin("~/.vim/plugged")
 	Plug 'wesQ3/vim-windowswap'
 	" Minimap
 	Plug 'severin-lemaignan/vim-minimap'
-	" Cutlass
-	Plug 'svermeulen/vim-cutlass'
 
 	" Color scheme
 	Plug 'dracula/vim',{'as':'dracula'}
@@ -87,12 +85,3 @@ autocmd vimenter * call AutoStartMinimap()
 function AutoStartMinimap()
 	"Minimap
 endfunction
-
-"==========
-" Cutlass
-"==========
-nnoremap m d
-xnoremap m d
-
-nnoremap mm dd
-nnoremap M D
