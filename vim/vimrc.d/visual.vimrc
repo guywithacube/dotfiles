@@ -1,16 +1,17 @@
 "===========
-" Color support
+" Colorscheme
 "===========
-" Enable 256 color
-if (&term =~ "256color")
-	set t_Co=256
-	" Use Dracula
-	colorscheme dracula
-	" NOTE: Need add truecolor support
-	" https://github.com/dracula/vim/issues/96
-	" set termguicolors
-else
-	colorscheme darkblue
+if !empty(&t_Co)
+	if &t_Co == 256
+	 	if !empty($COLORTERM) && ($COLORTERM == "truecolor" || $COLORTERM == "24bit")
+		" Use Dracula
+		colorscheme dracula
+		set termguicolors
+		let g:lightline = {
+			\ "colorscheme": "dracula",
+			\ }
+		endif
+	endif
 endif
 
 "===========

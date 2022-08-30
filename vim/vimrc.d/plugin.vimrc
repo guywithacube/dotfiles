@@ -80,13 +80,6 @@ function AutoCloseNERDTree()
 endfunction
 
 "==========
-" Lightline
-"==========
-let g:lightline = {
-	\ "colorscheme": "solarized",
-	\ }
-
-"==========
 " Minimap
 "==========
 " Auto-start
