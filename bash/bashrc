@@ -65,12 +65,24 @@ fi
 #==========
 # Configure color
 #==========
-COLOR_PROMPT=false
-case "$TERM" in
-	xterm-color | *-256color)
-		COLOR_PROMPT=true
-		;;
-esac
+SUPPORTS_COLORS=false
+# Check if tput is available
+if [ -x "$(command -v tput)" ]; then
+	if [ "$(tput colors)" -gt 0 ]; then
+		SUPPORTS_COLORS=true
+	fi
+else
+	# TODO: Refactor! This is an unreliable/bad way to check for color support.
+	case "$TERM" in
+		xterm-color | *-256color)
+			SUPPORTS_COLORS=true
+			;;
+	esac
+fi
+if $SUPPORTS_COLORS; then
+	# For *BSD/Darwin
+	export CLICOLOR=1
+fi
 
 #==========
 # Load files

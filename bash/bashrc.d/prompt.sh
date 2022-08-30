@@ -3,7 +3,7 @@
 #==========
 # Custom prompt
 #==========
-if $COLOR_PROMPT; then
+if $SUPPORTS_COLORS; then
 	# PS1 Bash escaping
 	# https://unix.stackexchange.com/a/28828
 	# PS1 Bash prompt escape sequences:

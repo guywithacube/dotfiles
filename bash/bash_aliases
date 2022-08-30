@@ -5,7 +5,6 @@
 # Colorize
 #==========
 # https://superuser.com/a/879035
-export CLICOLOR=1 # for *BSD/darwin
 ls --color=auto &> /dev/null && alias ls="ls --color=auto" ||
 
 alias grep="grep --color=auto"
