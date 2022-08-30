@@ -38,7 +38,7 @@ fi
 # Root user warning
 #==========
 # Check effective user ID
-if [ "$(id -u)" == 0 ]; then
+if [ "$(id -u)" = "0" ]; then
 	echo "BE CAREFUL, YOU ARE ROOT"
 fi
 
