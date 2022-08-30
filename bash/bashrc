@@ -31,7 +31,7 @@ shopt -s globstar
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 if [ -f ~/.bash_aliases ]; then
-	. ~/.bash_aliases
+	source ~/.bash_aliases
 fi
 
 #==========
@@ -83,6 +83,7 @@ done
 #==========
 # Private / machine specific
 #==========
-for file in $BASH_DIR/private.d/*.sh; do
-	[ -r "$file" ] && [ -f "$file" ] && . "$file"
+for file in "$BASH_DIR"/private.d/*.sh; do
+	# shellcheck source=/dev/null
+	[ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
