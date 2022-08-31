@@ -39,3 +39,9 @@ set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 " Separation markers
 "===========
 set fillchars=vert:│
+
+"===========
+" Netrw
+"===========
+" Use "tree style" listing
+let g:netrw_liststyle=3
