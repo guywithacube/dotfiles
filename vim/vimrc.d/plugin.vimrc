@@ -47,6 +47,10 @@ autocmd FileType nerdtree setlocal relativenumber
 " Auto-start
 autocmd vimenter * call AutoStartNERDTree()
 function AutoStartNERDTree()
+	if !exists(":NERDTree")
+		echo "NERDTree is not installed"
+		return 0
+	endif
 	if (@% =~ "-fc.") " case where Vim was opened because of fc (used by GNU Readline)
 		echo "NERDTree ignored; in 'fc' mode"
 		return 0
