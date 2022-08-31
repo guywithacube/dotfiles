@@ -26,8 +26,6 @@ call plug#begin("~/.vim/plugged")
 	Plug 'airblade/vim-gitgutter'
 	" Move panes with <Leader>ww
 	Plug 'wesQ3/vim-windowswap'
-	" Minimap
-	Plug 'severin-lemaignan/vim-minimap'
 
 	" Color scheme
 	Plug 'dracula/vim',{'as':'dracula'}
@@ -75,13 +73,4 @@ function AutoCloseNERDTree()
 	if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree())
 		q
 	endif
-endfunction
-
-"==========
-" Minimap
-"==========
-" Auto-start
-autocmd vimenter * call AutoStartMinimap()
-function AutoStartMinimap()
-	"Minimap
 endfunction
