@@ -36,7 +36,6 @@ call plug#end()
 "==========
 " Minimize clutter
 let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
 
 " https://www.mokacoding.com/blog/nerdtree-relative-numbers/
 " enable line numbers
