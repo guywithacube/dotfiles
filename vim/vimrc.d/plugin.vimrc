@@ -9,7 +9,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 		echo 'A problem occured while downloading vim-plug'
 		finish
 	else
-		autocmd VimEnter * PlugInstall | source $MYVIMRC
+		autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 	endif
 endif
 
