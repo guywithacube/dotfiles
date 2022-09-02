@@ -21,11 +21,14 @@ endif
 
 if !empty(&t_Co) && (&t_Co == 256) && SupportsTrueColor()
 	set termguicolors
-	" Use Dracula
-	colorscheme dracula
-	let g:lightline = {
-		\ "colorscheme": "dracula",
-		\ }
+	try
+		" Use Dracula
+		colorscheme dracula
+		let g:lightline = {
+			\ "colorscheme": "dracula",
+			\ }
+	catch
+	endtry
 endif
 
 "===========
