@@ -2,8 +2,8 @@
 " vim-plug (plugin manager)
 "===========
 " Download and install vim-plug (if necessary)
-if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+if empty(glob('$HOME/.vim/autoload/plug.vim'))
+	silent !curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs
 	     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	if v:shell_error
 		echo 'A problem occured while downloading vim-plug'
@@ -13,7 +13,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 	endif
 endif
 
-call plug#begin("~/.vim/plugged")
+call plug#begin("$HOME/.vim/plugged")
 	" NERDTree
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'

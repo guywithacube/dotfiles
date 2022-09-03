@@ -79,7 +79,8 @@ echo -e "Assuming you meant exit...\nPress (Q) to skip countdown or any other ke
 #==========
 alias rc="reloadBashrc"
 reloadBashrc() {
-	source ~/.bashrc
+	# shellcheck source=/dev/null
+	source "$HOME/.bashrc"
 	echo "Reloaded bashrc"
 }
 

@@ -3,7 +3,8 @@
 
 # Load .bashrc
 # https://apple.stackexchange.com/a/51038
-if [ -f ~/.bashrc ]; then
-	source ~/.bashrc
+if [ -f "$HOME/.bashrc" ]; then
+	# shellcheck source=/dev/null
+	source "$HOME/.bashrc"
 fi
 

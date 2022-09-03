@@ -4,7 +4,7 @@
 #==========
 # Directory locations
 #==========
-DOTFILES_DIR=~/.dotfiles
+DOTFILES_DIR=$HOME/.dotfiles
 BASH_DIR=$DOTFILES_DIR/bash
 
 #==========
@@ -30,8 +30,9 @@ shopt -s globstar
 # Better less for non-text input files
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-if [ -f ~/.bash_aliases ]; then
-	source ~/.bash_aliases
+if [ -f "$HOME/.bash_aliases" ]; then
+	# shellcheck source=/dev/null
+	source "$HOME/.bash_aliases"
 fi
 
 #==========
