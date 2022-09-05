@@ -23,31 +23,11 @@ alias ...="cd ../.."
 alias ll="ls -alF"
 alias la="ls -A"
 alias l="ls -CF"
-alias lsla="ls -al"
-
-#==========
-# Extend tmux
-#==========
-alias ta="tmux attach"
-alias tat="tmux attach -t "
-alias tn="tmux new-session"
-alias tl="tmux ls"
 
 #==========
 # Git
 #==========
 alias g="git"
-alias ga="git add"
-alias gai="git add -i"
-alias gc="git commit"
-alias gd="git diff"
-alias gl="git log"
-alias gs="git status"
-
-#==========
-# Clear
-#==========
-alias cl="clear"
 
 #==========
 # Typos
@@ -105,21 +85,3 @@ historyEnabled() {
 		return 1
 	fi
 }
-
-# sudo does not work well with functions and aliases, use smartSudo for those cases
-# https://unix.stackexchange.com/a/438712
-alias ssudo="smartSudo"
-function smartSudo {
-	local firstArg=$1
-	if [ $(type -t $firstArg) = function ]
-	then
-		shift && command sudo bash -c "$(declare -f $firstArg);$firstArg $*"
-	elif [ $(type -t $firstArg) = alias ]
-	then
-		alias sudo='\sudo '
-		eval "sudo $@"
-	else
-		command sudo "$@"
-	fi
-}
-
