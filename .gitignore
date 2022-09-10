@@ -1,9 +1,10 @@
-# VIM
+# Vim: swap files
+# https://stackoverflow.com/a/40870180
 *~
 *[._]*.s[a-v][a-z]
 *[._]*.sw[a-p]
 *[._]s[a-v][a-z]
 *[._]sw[a-p]
 
-# Mac OS X
+# macOS: desktop services store
 *.DS_Store
