@@ -6,5 +6,8 @@
 *[._]s[a-v][a-z]
 *[._]sw[a-p]
 
+# Vim plugin: netrw
+*.netrwhist
+
 # macOS: desktop services store
 *.DS_Store
