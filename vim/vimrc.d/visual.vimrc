@@ -2,7 +2,7 @@
 " Colorscheme
 "===========
 function SupportsTrueColor()
-	return !empty($COLORTERM) && ($COLORTERM == "truecolor" || $COLORTERM == "24bit")
+	return has("termguicolors") && !empty($COLORTERM) && ($COLORTERM == "truecolor" || $COLORTERM == "24bit")
 endfunction
 
 " tmux documentation insists that term option is either "tmux"-like or "screen"-like.
