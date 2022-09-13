@@ -96,14 +96,7 @@ done
 #==========
 # Private / machine specific
 #==========
-# Shell options may be changed by other scripts. Save the shopts for future
-# restoration.
-saved_shopt="$(shopt -p)"
-
 for file in "$BASH_DIR"/private.d/*.sh; do
 	# shellcheck source=/dev/null
 	[ -r "$file" ] && [ -f "$file" ] && source "$file"
 done
-
-# Restore shell options
-eval "$saved_shopt"
