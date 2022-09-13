@@ -36,13 +36,19 @@ endif
 "===========
 " Column limit
 " https://superuser.com/a/249856
-set colorcolumn=100
-highlight ColorColumn ctermbg=238 ctermfg=11
+set colorcolumn=+1
+highlight ColorColumn
+\          term=reverse
+\         cterm=NONE      ctermfg=NONE      ctermbg=8
+\           gui=NONE        guifg=NONE        guibg=#1c1c1c
+
 " Highlight current line
 set cursorline
-highlight CursorLine cterm=NONE ctermbg=238
-" Highlight visual selection (aka click and drag)
-hi Visual term=reverse ctermbg=3 ctermfg=4
+set cursorlineopt=screenline,number
+highlight CursorLine
+\          term=underline
+\         cterm=NONE      ctermfg=NONE      ctermbg=8
+\           gui=NONE        guifg=NONE        guibg=#1c1c1c
 
 "===========
 " Whitespace markers
