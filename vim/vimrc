@@ -20,6 +20,10 @@ syntax on
 set backspace=indent,eol,start
 set laststatus=2
 
+" Show search count message
+" https://stackoverflow.com/a/4671112
+set shortmess-=S
+
 "===========
 " Indentation
 "===========
