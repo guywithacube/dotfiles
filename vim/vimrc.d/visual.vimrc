@@ -5,12 +5,16 @@ function SupportsTrueColor()
 	return has("termguicolors") && !empty($COLORTERM) && ($COLORTERM == "truecolor" || $COLORTERM == "24bit")
 endfunction
 
+function InTmux()
+	return (&term =~ "^tmux" || &term =~ "^screen") && !empty($TMUX)
+endfunction
+
 " tmux documentation insists that term option is either "tmux"-like or "screen"-like.
 " As such, Vim can not automatically tell if it is in an "xterm"-like terminal.
 " Set `t_8f` and `t_8b` options when term option is "tmux"-like and tmux client term is
 " "xterm"-like.
 " For more information see :help xterm-true-color.
-if SupportsTrueColor() && (&term =~ "^tmux")
+if SupportsTrueColor() && InTmux()
 	" Get tmux client's terminal name
 	let tmux_client_term = system("tmux display-message -p -F '#{client_termname}'")
 	if (tmux_client_term =~ "^xterm") " case where tmux_client_term is "xterm"-like
