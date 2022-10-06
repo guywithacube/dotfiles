@@ -28,12 +28,39 @@ if !empty(&t_Co) && (&t_Co == 256) && SupportsTrueColor()
 	try
 		" Use Dracula
 		colorscheme dracula
-		let g:lightline = {
-			\ "colorscheme": "dracula",
-			\ }
 	catch
 	endtry
 endif
+
+"===========
+" Lightline
+"===========
+let g:lightline = {
+	\ "colorscheme": "default",
+\ }
+
+augroup colorscheme_lightline_configuration
+	autocmd!
+	autocmd ColorScheme *
+		\ call s:sync_lightline_colorscheme_with_colorscheme()
+augroup END
+
+function s:lightline_reload_colorscheme()
+	" :help lightline-problem-13
+	if !exists('g:loaded_lightline')
+		return
+	endif
+	call lightline#init()
+	call lightline#colorscheme()
+	call lightline#update()
+endfunction
+
+function s:sync_lightline_colorscheme_with_colorscheme()
+	let g:lightline.colorscheme = g:colors_name
+	call s:lightline_reload_colorscheme()
+endfunction
+
+call s:sync_lightline_colorscheme_with_colorscheme()
 
 "===========
 " Highlight
