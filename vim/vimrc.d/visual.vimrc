@@ -39,6 +39,14 @@ let g:lightline = {
 	\ "colorscheme": "default",
 \ }
 
+let g:lightline.active = {
+	\ 'left': [ [ 'mode', 'paste' ],
+	\           [ 'readonly', 'filename', 'modified', 'winnr' ] ]
+	\ }
+let g:lightline.inactive = {
+	\ 'left': [ [ 'filename' , 'winnr' ] ]
+	\ }
+
 augroup colorscheme_lightline_configuration
 	autocmd!
 	autocmd ColorScheme *
