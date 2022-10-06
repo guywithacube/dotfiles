@@ -38,21 +38,30 @@ endif
 "===========
 " Highlight
 "===========
-" Column limit
-" https://superuser.com/a/249856
-set colorcolumn=+1
-highlight ColorColumn
-\          term=reverse
-\         cterm=NONE      ctermfg=NONE      ctermbg=8
-\           gui=NONE        guifg=NONE        guibg=#1c1c1c
+augroup colorscheme_highlight_override
+	autocmd!
+	autocmd ColorScheme * call s:highlight_override()
+augroup END
 
-" Highlight current line
-set cursorline
-set cursorlineopt=screenline,number
-highlight CursorLine
-\          term=underline
-\         cterm=NONE      ctermfg=NONE      ctermbg=8
-\           gui=NONE        guifg=NONE        guibg=#1c1c1c
+function s:highlight_override()
+	" Column limit
+	" https://superuser.com/a/249856
+	set colorcolumn=+1
+	highlight ColorColumn
+	\          term=reverse
+	\         cterm=NONE      ctermfg=NONE      ctermbg=8
+	\           gui=NONE        guifg=NONE        guibg=#1c1c1c
+
+	" Highlight current line
+	set cursorline
+	set cursorlineopt=screenline,number
+	highlight CursorLine
+	\          term=underline
+	\         cterm=NONE      ctermfg=NONE      ctermbg=8
+	\           gui=NONE        guifg=NONE        guibg=#1c1c1c
+endfunction
+
+call s:highlight_override()
 
 "===========
 " Whitespace markers
