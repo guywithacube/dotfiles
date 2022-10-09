@@ -1,38 +1,4 @@
 "===========
-" Colorscheme
-"===========
-function SupportsTrueColor()
-	return has("termguicolors") && !empty($COLORTERM) && ($COLORTERM == "truecolor" || $COLORTERM == "24bit")
-endfunction
-
-function InTmux()
-	return (&term =~ "^tmux" || &term =~ "^screen") && !empty($TMUX)
-endfunction
-
-" tmux documentation insists that term option is either "tmux"-like or "screen"-like.
-" As such, Vim can not automatically tell if it is in an "xterm"-like terminal.
-" Set `t_8f` and `t_8b` options when term option is "tmux"-like and tmux client term is
-" "xterm"-like.
-" For more information see :help xterm-true-color.
-if SupportsTrueColor() && InTmux()
-	" Get tmux client's terminal name
-	let tmux_client_term = system("tmux display-message -p -F '#{client_termname}'")
-	if (tmux_client_term =~ "^xterm") " case where tmux_client_term is "xterm"-like
-		let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
-		let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
-	endif
-endif
-
-if !empty(&t_Co) && (&t_Co == 256) && SupportsTrueColor()
-	set termguicolors
-	try
-		" Use Dracula
-		colorscheme dracula
-	catch
-	endtry
-endif
-
-"===========
 " Lightline
 "===========
 let g:lightline = {
@@ -64,11 +30,11 @@ function s:lightline_reload_colorscheme()
 endfunction
 
 function s:sync_lightline_colorscheme_with_colorscheme()
-	let g:lightline.colorscheme = g:colors_name
-	call s:lightline_reload_colorscheme()
+	if exists("g:colors_name")
+		let g:lightline.colorscheme = g:colors_name
+		call s:lightline_reload_colorscheme()
+	endif
 endfunction
-
-call s:sync_lightline_colorscheme_with_colorscheme()
 
 "===========
 " Highlight
@@ -116,3 +82,51 @@ set fillchars=vert:│
 "===========
 " Use "tree style" listing
 let g:netrw_liststyle=3
+
+"===========
+" Colorscheme
+"===========
+function SupportsTrueColor()
+	return has("termguicolors") && !empty($COLORTERM) && ($COLORTERM == "truecolor" || $COLORTERM == "24bit")
+endfunction
+
+function InTmux()
+	return (&term =~ "^tmux" || &term =~ "^screen") && !empty($TMUX)
+endfunction
+
+" tmux documentation insists that term option is either "tmux"-like or "screen"-like.
+" As such, Vim can not automatically tell if it is in an "xterm"-like terminal.
+" Set `t_8f` and `t_8b` options when term option is "tmux"-like and tmux client term is
+" "xterm"-like.
+" For more information see :help xterm-true-color.
+if SupportsTrueColor() && InTmux()
+	" Get tmux client's terminal name
+	let tmux_client_term = system("tmux display-message -p -F '#{client_termname}'")
+	if (tmux_client_term =~ "^xterm") " case where tmux_client_term is "xterm"-like
+		let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+		let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+	endif
+endif
+
+function s:colorscheme_dracula()
+	if !empty(&t_Co) && (&t_Co == 256) && SupportsTrueColor()
+		set termguicolors
+		try
+			" Use Dracula
+			colorscheme dracula
+		catch
+		endtry
+	endif
+endfunction
+
+augroup colorscheme_dracula_customization
+	autocmd!
+	autocmd ColorScheme dracula call s:dracula_customization()
+augroup END
+
+function s:dracula_customization()
+	highlight! link SpecialKey DraculaBoundary
+	call s:sync_lightline_colorscheme_with_colorscheme()
+endfunction
+
+call s:colorscheme_dracula()
