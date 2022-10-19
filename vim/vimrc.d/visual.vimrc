@@ -67,10 +67,17 @@ call s:highlight_override()
 "===========
 " Whitespace markers
 "===========
-set list
 " Custom linebreaks/tabs/trailing space indicators
-set showbreak=↪\
-set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+set list
+set listchars=eol:\\u21B2           " ↲
+set listchars+=tab:\\u22EE\ \\u2192 " ⋮ →
+set listchars+=lead:\\u25E6         " ◦
+set listchars+=trail:\\u2022        " •
+set listchars+=extends:\\u27E9      " ⟩
+set listchars+=precedes:\\u27E8     " ⟨
+set listchars+=nbsp:\\u2423         " ␣
+
+let &showbreak="↪ "
 
 "===========
 " Separation markers
