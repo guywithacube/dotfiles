@@ -27,3 +27,6 @@ endfunction
 
 " <Leader>tt to quickly open a new tab
 map <Leader>tt :<C-u>tabnew<CR>
+
+" <Leader>li to toggle list mode (see :help 'list')
+map <Leader>li :windo set list!<CR>
