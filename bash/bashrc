@@ -69,7 +69,9 @@ fi
 SUPPORTS_COLORS=false
 # Check if tput is available
 if [ -x "$(command -v tput)" ]; then
-	if [ "$(tput colors)" -gt 0 ]; then
+	tput_colors=$(tput colors 2> /dev/null)
+	return_value=$?
+	if [ $return_value -eq 0 ] && [ "$tput_colors" -gt 0 ]; then
 		SUPPORTS_COLORS=true
 	fi
 else
