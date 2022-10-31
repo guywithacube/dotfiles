@@ -9,7 +9,10 @@ if empty(glob('$HOME/.vim/autoload/plug.vim'))
 		echo 'A problem occured while downloading vim-plug'
 		finish
 	else
-		autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+		augroup vimenter_pluginstall
+			autocmd!
+			autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+		augroup END
 	endif
 endif
 
@@ -41,10 +44,16 @@ let NERDTreeMinimalUI = 1
 " enable line numbers
 let NERDTreeShowLineNumbers=1
 " make sure relative line numbers are used
-autocmd FileType nerdtree setlocal relativenumber
+augroup filetype_nerdtree_relative_line_number
+	autocmd!
+	autocmd FileType nerdtree setlocal relativenumber
+augroup END
 
 " Auto-start
-autocmd vimenter * call AutoStartNERDTree()
+augroup vimenter_autostartnerdtree
+	autocmd!
+	autocmd vimenter * call AutoStartNERDTree()
+augroup END
 function AutoStartNERDTree()
 	if !exists(":NERDTree")
 		echo "NERDTree is not installed"
@@ -71,7 +80,10 @@ endfunction
 
 " Auto-close if last buffer
 " https://github.com/scrooloose/nerdtree/issues/21
-autocmd bufenter * call AutoCloseNERDTree()
+augroup bufenter_autoclosenerdtree
+	autocmd!
+	autocmd bufenter * call AutoCloseNERDTree()
+augroup END
 function AutoCloseNERDTree()
 	if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree())
 		q
