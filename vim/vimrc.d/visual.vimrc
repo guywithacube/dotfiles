@@ -141,3 +141,27 @@ function s:dracula_customization()
 endfunction
 
 call s:colorscheme_dracula()
+"
+"===========
+" Undercurl
+"===========
+function s:using_iterm()
+	let envs = [$TERM_PROGRAM, $LC_TERMINAL]
+	for env in envs
+		if !empty(env) && env =~? "^iterm"
+			return v:true
+		endif
+	endfor
+	return v:false
+endfunction
+
+if s:using_iterm()
+	let &t_Cs = "\e[4:3m"
+	let &t_Ce = "\e[4:0m"
+else
+	let start_smulx = system("tput Smulx 3")
+	if v:shell_error == 0
+		let &t_Cs = start_smulx
+		let &t_Ce = system("tput Smulx 0")
+	endif
+endif
