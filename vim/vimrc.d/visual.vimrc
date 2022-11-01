@@ -45,6 +45,10 @@ augroup colorscheme_highlight_override
 augroup END
 
 function s:highlight_override()
+	if &diff
+		return v:false
+	endif
+
 	" Column limit
 	" https://superuser.com/a/249856
 	set colorcolumn=+1
