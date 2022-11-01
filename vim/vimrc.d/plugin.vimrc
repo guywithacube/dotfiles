@@ -58,12 +58,10 @@ function AutoStartNERDTree()
 	if !exists(":NERDTree")
 		echo "NERDTree is not installed"
 		return 0
-	endif
-	if (@% =~ "-fc.") " case where Vim was opened because of fc (used by GNU Readline)
+	elseif (@% =~ "-fc.") " case where Vim was opened because of fc (used by GNU Readline)
 		echo "NERDTree ignored; in 'fc' mode"
 		return 0
-	endif
-	if (exists("b:NERDTree")) " case where directory was opened first
+	elseif (exists("b:NERDTree")) " case where directory was opened first
 		echo "NERDTree ignored; it is already open"
 		return 0
 	endif
