@@ -61,6 +61,12 @@ function AutoStartNERDTree()
 	elseif (@% =~ "-fc.") " case where Vim was opened because of fc (used by GNU Readline)
 		echo "NERDTree ignored; in 'fc' mode"
 		return 0
+	elseif (&diff)
+		echo "NERDTree ignored; in 'diff' mode"
+		return 0
+	elseif (&ft =~ '^\%(gitcommit\)$')
+		echo "NERDTree ignored; filetype is " . &ft
+		return 0
 	elseif (exists("b:NERDTree")) " case where directory was opened first
 		echo "NERDTree ignored; it is already open"
 		return 0
