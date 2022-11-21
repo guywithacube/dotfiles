@@ -79,7 +79,7 @@ set listchars+=lead:\\u25E6         " ◦
 set listchars+=trail:\\u2022        " •
 set listchars+=extends:\\u27E9      " ⟩
 set listchars+=precedes:\\u27E8     " ⟨
-set listchars+=nbsp:\\u2423         " ␣
+set listchars+=nbsp:\\u2298         " ⊘
 
 let &showbreak="↪ "
 
