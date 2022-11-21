@@ -1,15 +1,9 @@
 #!/usr/bin/env bash
 # vim: set filetype=sh :
 
-#==========
-# Directory locations
-#==========
 DOTFILES_DIR=$HOME/.dotfiles
 BASH_DIR=$DOTFILES_DIR/bash
 
-#==========
-# Default .bashrc functionality
-#==========
 # If not running interactively, don't do anything
 # https://unix.stackexchange.com/a/257613
 case $- in
@@ -35,26 +29,18 @@ if [ -f "$HOME/.bash_aliases" ]; then
 	source "$HOME/.bash_aliases"
 fi
 
-#==========
 # Root user warning
-#==========
 # Check effective user ID
 if [ "$(id -u)" = "0" ]; then
 	echo "BE CAREFUL, YOU ARE ROOT"
 fi
 
-#==========
 # Disable <C-s>
-#==========
 bind -r "C-s"
 stty -ixon
 
-#==========
-# Editor
-#==========
 # If Vim is installed, set as default editor
 # https://unix.stackexchange.com/a/73486
-
 # Attempt to fetch path to Vim
 path_to_vim=$(command -v vim)
 # Verify path_to_vim leads to an executable
@@ -63,9 +49,7 @@ if [ -x "$path_to_vim" ]; then
 	export EDITOR=$path_to_vim
 fi
 
-#==========
 # Configure color
-#==========
 SUPPORTS_COLORS=false
 # Check if tput is available
 if [ -x "$(command -v tput)" ]; then
@@ -87,17 +71,13 @@ if $SUPPORTS_COLORS; then
 	export CLICOLOR=1
 fi
 
-#==========
 # Load files
-#==========
 for script in "$BASH_DIR"/bashrc.d/*.sh; do
 	# shellcheck source=/dev/null
 	source "$script"
 done
 
-#==========
 # Private / machine specific
-#==========
 for file in "$BASH_DIR"/private.d/*.sh; do
 	# shellcheck source=/dev/null
 	[ -r "$file" ] && [ -f "$file" ] && source "$file"

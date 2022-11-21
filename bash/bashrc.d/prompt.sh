@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-#==========
-# Custom prompt
-#==========
-# Escape non-printing characters
+# Non-printing characters need to be escaped
 # https://superuser.com/a/301355
 COLORED_PS1="\[\e[0m\]\[\e[33m\]\u@\h\[\e[0m\]\[\e[37m\]:\[\e[0m\]\[\e[32m\]\w\[\e[0m\]\n\\$ \[\e[0m\]"
 if $SUPPORTS_COLORS; then
@@ -24,9 +21,7 @@ else
 	eval "$saved_shopt_extglob"
 fi
 
-#==========
 # Terminal title
-#==========
 case "$TERM" in
 	xterm* | rxvt*)
 		# NOTE: xterm OSC escape sequences from http://tldp.org/HOWTO/Xterm-Title-3.html

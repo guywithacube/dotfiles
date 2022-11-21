@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
-#==========
-# History
-#==========
 # Don't put duplicate lines/lines with spaces in history.
-#HISTCONTROL=ignoreboth
 HISTCONTROL="ignorespace:ignoredups"
 
 # Set history length
