@@ -15,7 +15,7 @@ case $- in
 esac
 
 # Check window size after each command.
-# Update LINES and COLUMNS if nedded.
+# Update LINES and COLUMNS if needed.
 shopt -s checkwinsize
 
 # Recursive double-wildcard (**)
