@@ -1,15 +1,9 @@
 #!/usr/bin/env bash
-# vim: set filetype=sh :
+# vim: set filetype=sh foldmethod=marker:
 
-#==========
-# Directory locations
-#==========
 DOTFILES_DIR=$HOME/.dotfiles
 BASH_DIR=$DOTFILES_DIR/bash
 
-#==========
-# Default .bashrc functionality
-#==========
 # If not running interactively, don't do anything
 # https://unix.stackexchange.com/a/257613
 case $- in
@@ -20,52 +14,20 @@ case $- in
 		;;
 esac
 
-# Check window size after each command.
-# Update LINES and COLUMNS if nedded.
-shopt -s checkwinsize
-
-# Recursive double-wildcard (**)
-shopt -s globstar
-
-# Better less for non-text input files
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
 if [ -f "$HOME/.bash_aliases" ]; then
 	# shellcheck source=/dev/null
 	source "$HOME/.bash_aliases"
 fi
 
-#==========
 # Root user warning
-#==========
 # Check effective user ID
-if [ "$(id -u)" = "0" ]; then
+if [ "${EUID:-$(id -u)}" -eq "0" ]; then
 	echo "BE CAREFUL, YOU ARE ROOT"
 fi
 
-#==========
-# Disable <C-s>
-#==========
-bind -r "C-s"
-stty -ixon
+# COLOR CONFIGURATION {{{
 
-#==========
-# Editor
-#==========
-# If Vim is installed, set as default editor
-# https://unix.stackexchange.com/a/73486
-
-# Attempt to fetch path to Vim
-path_to_vim=$(command -v vim)
-# Verify path_to_vim leads to an executable
-if [ -x "$path_to_vim" ]; then
-	export VISUAL=$path_to_vim
-	export EDITOR=$path_to_vim
-fi
-
-#==========
 # Configure color
-#==========
 SUPPORTS_COLORS=false
 # Check if tput is available
 if [ -x "$(command -v tput)" ]; then
@@ -87,17 +49,138 @@ if $SUPPORTS_COLORS; then
 	export CLICOLOR=1
 fi
 
-#==========
-# Load files
-#==========
-for script in "$BASH_DIR"/bashrc.d/*.sh; do
-	# shellcheck source=/dev/null
-	source "$script"
-done
+# COLOR CONFIGURATION }}}
+# PROMPT {{{
 
-#==========
+# Non-printing characters need to be escaped
+# https://superuser.com/a/301355
+COLORED_PS1="\[\e[0m\]\[\e[33m\]\u@\h\[\e[0m\]\[\e[37m\]:\[\e[0m\]\[\e[32m\]\w\[\e[0m\]\n\\$ \[\e[0m\]"
+if $SUPPORTS_COLORS; then
+	export PS1=$COLORED_PS1
+else
+	# Save extglob option
+	saved_shopt_extglob="$(shopt -p extglob)"
+
+	# Enable extglob
+	shopt -s extglob
+	# Remove occurrences of `\[` or `\]`
+	REMOVE_NON_PRINTING_ESCAPES=${COLORED_PS1//@(\\\[|\\\])/}
+	# Remove occurrences of ANSI SGR escapes
+	REMOVE_ANSI_ESCAPES=${REMOVE_NON_PRINTING_ESCAPES//@(\\e|\\033)\[*([[:digit:];])m/}
+	export PS1=$REMOVE_ANSI_ESCAPES
+
+	# Restore original extglob option
+	eval "$saved_shopt_extglob"
+fi
+
+# Terminal title
+case "$TERM" in
+	xterm* | rxvt*)
+		# NOTE: xterm OSC escape sequences from http://tldp.org/HOWTO/Xterm-Title-3.html
+		#       - ESC]0;stringBEL : Set icon name and window title to string
+		#       - ESC]1;stringBEL : Set icon name to string
+		#       - ESC]2;stringBEL : Set window title to string
+		export PS1="\[\e]0;\h:\w\007\]$PS1"
+		;;
+esac
+
+# PROMPT }}}
+# PROMPT COMMAND {{{
+
+# Interpretation of `$PROMPT_COMMAND` varies between bash versions
+# For portability, make `$PROMPT_COMMAND` run each element of the array `$prompt_command_array`
+# https://unix.stackexchange.com/a/672843
+
+prompt_command_array=()
+
+function execute_prompt_command_array() {
+	for entry in "${prompt_command_array[@]}"; do
+		$entry
+	done
+}
+
+export PROMPT_COMMAND="execute_prompt_command_array"
+
+# PROMPT COMMAND }}}
+# SHELL OPTIONS {{{
+
+# Check window size after each command.
+# Update LINES and COLUMNS if needed.
+shopt -s checkwinsize
+
+# Recursive double-wildcard (**)
+shopt -s globstar
+
+# Correct minor typos when changing directories
+shopt -s cdspell
+
+# SHELL OPTIONS }}}
+# HISTORY {{{
+
+# Append to the history file (don't overwrite).
+shopt -s histappend
+
+# Don't put duplicate lines/lines with spaces in history.
+HISTCONTROL="ignorespace:ignoredups"
+
+# Set history length
+# https://stackoverflow.com/a/19454838
+HISTSIZE=5000     # stored in memory
+HISTFILESIZE=5000 # stored on disk
+
+# Flush to history file after every command
+# https://askubuntu.com/a/80380
+# https://stackoverflow.com/a/36669770
+function flush_to_history() {
+	history -a
+	history -r
+}
+prompt_command_array+=("flush_to_history")
+
+# HISTORY }}}
+# READLINE {{{
+
+# Set editing mode to use vi style
+bind "set editing-mode vi"
+# Only give 0.15 sec for ambiguous key sequences
+# https://unix.stackexchange.com/a/318497
+bind "set keyseq-timeout 150"
+
+# Show vi mode
+bind "set show-mode-in-prompt on"
+# Insert mode
+bind 'set vi-ins-mode-string ""'
+# Normal mode
+bind 'set vi-cmd-mode-string "(cmd) "'
+
+# Colorize autocompleted text
+if $SUPPORTS_COLORS; then
+	bind "set colored-stats on"
+fi
+
+# Disable <C-s>
+bind -r "C-s"
+stty -ixon
+
+# READLINE }}}
+# UTILITY PREFERENCES {{{
+
+# Better less for non-text input files
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# If Vim is installed, set as default editor
+# https://unix.stackexchange.com/a/73486
+# Attempt to fetch path to Vim
+path_to_vim=$(command -v vim)
+# Verify path_to_vim leads to an executable
+if [ -x "$path_to_vim" ]; then
+	export VISUAL=$path_to_vim
+	export EDITOR=$path_to_vim
+fi
+
+# UTILITY PREFERENCES }}}
+
 # Private / machine specific
-#==========
 for file in "$BASH_DIR"/private.d/*.sh; do
 	# shellcheck source=/dev/null
 	[ -r "$file" ] && [ -f "$file" ] && source "$file"

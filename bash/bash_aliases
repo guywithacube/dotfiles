@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
-# vim: set filetype=sh :
+# vim: set filetype=sh foldmethod=marker foldlevel=1:
 
-#==========
-# Colorize
-#==========
+# Auto colorize
 # https://superuser.com/a/879035
 ls --color=auto &> /dev/null && alias ls="ls --color=auto"
 
@@ -11,38 +9,26 @@ alias grep="grep --color=auto"
 alias fgrep="fgrep --color=auto"
 alias egrep="egrep --color=auto"
 
-#==========
 # Extend cd
-#==========
 alias ..="cd .."
 alias ...="cd ../.."
 
-#==========
 # Extend ls
-#==========
 alias ll="ls -alF"
 alias la="ls -A"
 alias l="ls -CF"
 
-#==========
 # Git
-#==========
 alias g="git"
 
-#==========
 # Typos
-#==========
-alias :q="simulateVimExit"
-alias jk:q="simulateVimExit"
-alias qq="simulateVimExit"
-simulateVimExit() {
+function simulate_vim_exit() {
 echo -e "Assuming you meant exit...\nPress (Q) to skip countdown or any other key to cancel."
 	for i in {3..1}; do
 		# https://unix.stackexchange.com/a/26592
 		echo -e -n "\e[2K\rExiting in $i"
 		# https://stackoverflow.com/a/33614961
-		read -n 1 -t 1 input
-		if [ $? == 0 ]; then
+		if read -r -n 1 -t 1 input; then
 			if [[ $input == "q" || $input == "Q" ]]; then
 				echo -e -n "\e[2K\rBye"
 				break
@@ -53,20 +39,52 @@ echo -e "Assuming you meant exit...\nPress (Q) to skip countdown or any other ke
 	done
 	exit
 }
+alias simulateVimExit="simulate_vim_exit"
+alias :q="simulate_vim_exit"
+alias jk:q="simulate_vim_exit"
+alias qq="simulate_vim_exit"
 
-#==========
-# Tools
-#==========
-alias rc="reloadBashrc"
-reloadBashrc() {
+# TOOLS {{{
+
+# Reload `$HOME/.bashrc` file.
+#
+# Parameters:
+#   none
+# Returns:
+#   0 if $HOME/.bashrc was successfully sourced, non-zero otherwise
+function reload_bashrc() {
 	# shellcheck source=/dev/null
 	source "$HOME/.bashrc"
-	echo "Reloaded bashrc"
+	return_value=$?
+	if [ $return_value -eq 0 ]; then
+		echo "Reloaded bashrc"
+	else
+		echo "Either $HOME/.bashrc can't be read or a command returned non-zero." 1>&2
+		echo "Return code: $return_value" 1>&2
+		return $return_value
+	fi
+}
+alias reloadBashrc="reload_bashrc"
+alias rc="reload_bashrc"
+
+# Determine whether or not shell command history is enabled.
+#
+# Parameters:
+#   none
+# Returns:
+#   0 if command history is enabled, 1 if command history is disabled
+function is_history_enabled() {
+	[[ ":$SHELLOPTS:" == *"history"* ]]
 }
 
-alias th="toggleHistory"
-toggleHistory() {
-	if historyEnabled; then
+# Toggle shell option for command history.
+#
+# Parameters:
+#   none
+# Returns:
+#   0 if shell command history is toggled, non-zero otherwise
+function toggle_history() {
+	if is_history_enabled; then
 		echo "Disabling history"
 		set +o history
 	else
@@ -74,14 +92,7 @@ toggleHistory() {
 		set -o history
 	fi
 }
+alias toggleHistory="toggle_history"
+alias th="toggle_history"
 
-historyEnabled() {
-	# https://stackoverflow.com/a/1397020
-	if [[ ":$SHELLOPTS:" == *":history:"* ]]; then
-		# history is enabled
-		return 0
-	else
-		# history is NOT enabled
-		return 1
-	fi
-}
+# TOOLS }}}
