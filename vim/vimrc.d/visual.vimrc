@@ -81,7 +81,33 @@ set listchars+=extends:\\u27E9      " ⟩
 set listchars+=precedes:\\u27E8     " ⟨
 set listchars+=nbsp:\\u2298         " ⊘
 
-let &showbreak="↪ "
+function s:set_showbreak(flag)
+	if a:flag == v:true
+		let &showbreak="↪ "
+	else
+		set showbreak=
+	endif
+endfunction
+
+call s:set_showbreak(1)
+
+augroup optionset_whitespace_markers
+	autocmd!
+	autocmd OptionSet list call s:optionset_list()
+augroup END
+
+function s:optionset_list()
+	" Only proceed if 'list' changed
+	if v:option_old == v:option_new
+		return
+	endif
+
+	if v:option_new
+		call s:set_showbreak(1)
+	else
+		call s:set_showbreak(0)
+	endif
+endfunction
 
 "===========
 " Separation markers
