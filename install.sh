@@ -31,7 +31,7 @@ function echo_stderr() {
 # Parameters:
 #   callback - function
 # Returns:
-#   0 if all callbacks ran succesfully, non-zero otherwise.
+#   0 if all callbacks ran successfully, non-zero otherwise.
 function for_each_linked_file() {
 	if [ $# -ne 1 ]; then
 		echo_stderr "too many arguments provided"
@@ -58,7 +58,7 @@ function for_each_linked_file() {
 	done
 }
 
-# Verify that target_file is reasonbly safe to remove.
+# Verify that target_file is reasonably safe to remove.
 # target_file is considered safe when no file exists at that path or it is a
 # symbolic link.
 #
@@ -98,7 +98,7 @@ function rm_target_file() {
 #   source_file - filepath
 #   target_file - filepath
 # Returns:
-#   0 if source_file and target_file arre symbolically linked, non-zero
+#   0 if source_file and target_file are symbolically linked, non-zero
 #   otherwise.
 function create_symbolic_links() {
 	local source_file=$1 target_file=$2
