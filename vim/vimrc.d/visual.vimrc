@@ -1,3 +1,17 @@
+function s:using_terminal_emulator(terminal_name_regex)
+	let envs = [$TERM_PROGRAM, $LC_TERMINAL, $TERM]
+	for env in envs
+		if !empty(env) && env =~? "^" . a:terminal_name_regex
+			return v:true
+		endif
+	endfor
+	return v:false
+endfunction
+
+if s:using_terminal_emulator("alacritty")
+	let &term="xterm-256color"
+endif
+
 "===========
 " Lightline
 "===========
@@ -128,18 +142,18 @@ function SupportsTrueColor()
 endfunction
 
 function InTmux()
-	return (&term =~ "^tmux" || &term =~ "^screen") && !empty($TMUX)
+	return (s:using_terminal_emulator("tmux") || s:using_terminal_emulator("screen")) && !empty($TMUX)
 endfunction
 
-" tmux documentation insists that term option is either "tmux"-like or "screen"-like.
+" tmux documentation insists that TERM is either "tmux"-like or "screen"-like.
 " As such, Vim can not automatically tell if it is in an "xterm"-like terminal.
-" Set `t_8f` and `t_8b` options when term option is "tmux"-like and tmux client term is
-" "xterm"-like.
+" Set `t_8f` and `t_8b` options when vim has been opened in tmux and the tmux
+" client term appears to support true color.
 " For more information see :help xterm-true-color.
 if SupportsTrueColor() && InTmux()
 	" Get tmux client's terminal name
 	let tmux_client_term = system("tmux display-message -p -F '#{client_termname}'")
-	if (tmux_client_term =~ "^xterm") " case where tmux_client_term is "xterm"-like
+	if (tmux_client_term =~ '^\(xterm\|alacritty\)')
 		let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
 		let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
 	endif
@@ -171,17 +185,7 @@ call s:colorscheme_dracula()
 "===========
 " Undercurl
 "===========
-function s:using_iterm()
-	let envs = [$TERM_PROGRAM, $LC_TERMINAL]
-	for env in envs
-		if !empty(env) && env =~? "^iterm"
-			return v:true
-		endif
-	endfor
-	return v:false
-endfunction
-
-if s:using_iterm()
+if s:using_terminal_emulator("iterm")
 	let &t_Cs = "\e[4:3m"
 	let &t_Ce = "\e[4:0m"
 else
