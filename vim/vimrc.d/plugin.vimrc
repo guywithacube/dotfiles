@@ -17,6 +17,11 @@ if empty(glob('$HOME/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin("$HOME/.vim/plugged")
+	" NOTE: Including vim-plug is not strictly required for vim-plug to
+	"       function; however, it is necessary for using :help with vim-plug
+	"       subjects
+	Plug 'junegunn/vim-plug'
+
 	" NERDTree
 	Plug 'scrooloose/nerdtree'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
