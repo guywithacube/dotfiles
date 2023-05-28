@@ -29,4 +29,10 @@ endfunction
 map <Leader>tt :<C-u>tabnew<CR>
 
 " <Leader>li to toggle list mode (see :help 'list')
-map <Leader>li :windo set list!<CR>
+map <silent> <Leader>li
+	\ :<C-u>
+		\ Tabdo windo
+		\ if &modifiable \|
+			\ set list! \|
+		\ endif
+	\ <CR>
