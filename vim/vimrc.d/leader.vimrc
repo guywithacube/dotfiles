@@ -36,3 +36,12 @@ map <silent> <Leader>li
 			\ set list! \|
 		\ endif
 	\ <CR>
+
+" <Leader>nu to toggle line numbers
+map <silent> <Leader>nu
+	\ :<C-u>
+		\ Tabdo windo
+		\ if &modifiable \|
+			\ set number! \|
+		\ endif
+	\ <CR>
