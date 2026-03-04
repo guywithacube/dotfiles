@@ -168,6 +168,10 @@ endif
 function s:colorscheme_dracula()
 	if !empty(&t_Co) && (&t_Co == 256) && SupportsTrueColor()
 		set termguicolors
+		" Disable BCE (background color erase) so Vim explicitly paints the
+		" background of every cell rather than trusting the terminal to fill
+		" erased regions with the correct RGB background color.
+		set t_ut=
 		try
 			" Use Dracula
 			colorscheme dracula
