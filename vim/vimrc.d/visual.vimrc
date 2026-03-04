@@ -145,18 +145,24 @@ function InTmux()
 	return (s:using_terminal_emulator("tmux") || s:using_terminal_emulator("screen")) && !empty($TMUX)
 endfunction
 
+" Use the ISO 8613-6 colon-separated format for true color escape sequences
+" (e.g., \e[48:2:R:G:Bm) instead of the semicolon-separated format
+" (e.g., \e[48;2;R;G;Bm). The semicolon format overloads the SGR parameter
+" separator as a sub-parameter delimiter, which is ambiguous. The colon format
+" is unambiguous and widely supported by modern terminals.
+"
 " tmux documentation insists that TERM is either "tmux"-like or "screen"-like.
 " As such, Vim can not automatically tell if it is in an "xterm"-like terminal.
 " Set `t_8f` and `t_8b` options when vim has been opened in tmux and the tmux
 " client term appears to support true color.
 " For more information see :help xterm-true-color.
-if SupportsTrueColor() && InTmux()
-	" Get tmux client's terminal name
-	let tmux_client_term = system("tmux display-message -p -F '#{client_termname}'")
-	if (tmux_client_term =~ '^\(xterm\|alacritty\)')
-		let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
-		let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
-	endif
+" Check if the tmux client's terminal name appears to support true color
+let s:tmux_client_has_truecolor = InTmux()
+\ && system("tmux display-message -p -F '#{client_termname}'") =~ '^\(xterm\|alacritty\)'
+
+if SupportsTrueColor() || s:tmux_client_has_truecolor
+	let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+	let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
 endif
 
 function s:colorscheme_dracula()
