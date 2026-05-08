@@ -75,7 +75,7 @@ fi
 
 # Terminal title
 case "$TERM" in
-	xterm* | rxvt*)
+	xterm* | rxvt* | tmux*)
 		# NOTE: xterm OSC escape sequences from http://tldp.org/HOWTO/Xterm-Title-3.html
 		#       - ESC]0;stringBEL : Set icon name and window title to string
 		#       - ESC]1;stringBEL : Set icon name to string
